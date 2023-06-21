@@ -19,7 +19,7 @@ menu_items={
     }
     )
 with st.columns(5)[1]:
-    st.image('./geres_logo.jpg', width=400)
+    st.image('geres_logo.jpg', width=400)
 
 st.title('Optimize your garment factory')
 # Define list of selection options and sort alphabetical
