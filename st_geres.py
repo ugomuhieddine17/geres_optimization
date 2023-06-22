@@ -164,7 +164,7 @@ with tab_dash:
     st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv).encode(
         theta=alt.Theta(f"{col_of_interest}:Q", stack=True), color=alt.Color("Equipment:N", legend=None)
     )
-    
+
     pie = st.session_state.pie_chart_dash.mark_arc(outerRadius=120)
-    text = st.session_state.pie_chart_dash.mark_text(radius=140, size=20).encode(text="category:N")
+    text = st.session_state.pie_chart_dash.mark_text(radius=140, size=20).encode(text="Equipment:N")
     st.altair_chart(pie+text)
