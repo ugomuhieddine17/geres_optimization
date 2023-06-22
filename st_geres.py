@@ -127,12 +127,15 @@ with tab_improv:
 
 with tab_dash:
 
-    if 'improv_index_selected' not in st.session_state:
-        st.session_state.index_selected = list(st.session_state.improv_data_editor['edited_rows'].keys())
+    if 'df_selected_improv' not in st.session_state:
+        st.session_state.df_selected_improv = st.session_state['to_widget_data'].iloc[list(st.session_state.improv_data_editor['edited_rows'].keys())]
+    
+    st.session_state.df_selected_improv = st.session_state['to_widget_data'].iloc[list(st.session_state.improv_data_editor['edited_rows'].keys())]
+    st.write(st.session_state.df_selected_improv)
 
     # Chart plot
     if 'col_inte_chart' not in st.session_state:
-        st.session_state.col_inte_chart = alt.Chart(st.session_state['to_widget_data'].iloc[st.session_state.index_selected]).mark_bar().encode(
+        st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv).mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{col_of_interest}:Q',
             # tooltip=[
@@ -143,7 +146,6 @@ with tab_dash:
                     width=700,
                     height=300
                     )
-
     st.session_state.col_inte_chart = alt.Chart(st.session_state['to_widget_data'].iloc[st.session_state.index_selected]).mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{col_of_interest}:Q',
