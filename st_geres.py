@@ -80,12 +80,12 @@ with tab_improv:
     st.write(st.session_state['data_improv'])
 
     dico_of_group_by_savings = {'Electricity savings (kWh/yr)': np.mean,
-        'LPG savings (tonnes/yr)': np.mean,
-        'Wood savings (tonnes/yr)': np.mean,
-        'Diesel savings (kL/yr)': np.mean,
-       'Water savings (m3/yr)': np.mean,
-        'CO2 savings (tCO2/yr)': np.mean,
-        'Costs savings (USD/yr)': np.mean,
+        'LPG savings (tonnes/yr)': lambda x: round(np.mean(x),3),
+        'Wood savings (tonnes/yr)': lambda x: round(np.mean(x),3),
+        'Diesel savings (kL/yr)': lambda x: round(np.mean(x),3),
+       'Water savings (m3/yr)': lambda x: round(np.mean(x),3),
+        'CO2 savings (tCO2/yr)': lambda x: round(np.mean(x),3),
+        'Costs savings (USD/yr)': lambda x: round(np.mean(x),3),
         'Quantity':'first'
         }
 
