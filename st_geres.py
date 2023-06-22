@@ -146,7 +146,7 @@ with tab_dash:
                     width=700,
                     height=300
                     )
-    st.session_state.col_inte_chart = alt.Chart(st.session_state['to_widget_data'].iloc[st.session_state.index_selected]).mark_bar().encode(
+    st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv).mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{col_of_interest}:Q',
             # tooltip=[
