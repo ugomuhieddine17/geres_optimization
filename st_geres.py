@@ -154,7 +154,7 @@ with tab_dash:
                     width=700,
                     height=300
                     )
-    st.altair_chart(st.session_state.col_inte_chart)
+    st.altair_chart(st.session_state.col_inte_chart, use_container_width=True)
 
     if 'pie_chart_dash' not in st.session_state:
         st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv).encode(
@@ -165,4 +165,4 @@ with tab_dash:
         theta=alt.Theta(f"{col_of_interest}:Q", stack=True), color=alt.Color("Equipment:N")
     ).mark_arc(outerRadius=120)
 
-    st.altair_chart(st.session_state.pie_chart_dash)
+    st.altair_chart(st.session_state.pie_chart_dash, use_container_width=True)
