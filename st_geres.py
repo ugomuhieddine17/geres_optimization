@@ -77,6 +77,8 @@ with tab_improv:
             st.session_state['data_improv'] = pd.merge(data_df, st.session_state['equipment_df'], left_on='Equipment associated', right_on='Equipment', how='left')
     st.session_state['data_improv'] = pd.merge(data_df, st.session_state['equipment_df'], left_on='Equipment associated', right_on='Equipment', how='left')
 
+    st.write(st.session_state['data_improv'])
+
     dico_of_group_by_savings = {'Electricity savings (kWh/yr)': np.mean,
         'LPG savings (tonnes/yr)': np.mean,
         'Wood savings (tonnes/yr)': np.mean,
@@ -87,6 +89,7 @@ with tab_improv:
         'Quantity':'first'
         }
 
+    #the df for the widget
     if 'to_widget_data' not in st.session_state:
             st.session_state['to_widget_data'] = st.session_state['data_improv'].groupby(['Equipment', 'Category of energy saving']).agg(
                     dico_of_group_by_savings
@@ -94,21 +97,15 @@ with tab_improv:
     st.session_state['to_widget_data'] = st.session_state['data_improv'].groupby(['Equipment', 'Category of energy saving']).agg(
         dico_of_group_by_savings
     ).reset_index()
-
     for col in dico_of_group_by_savings.keys():
         st.session_state['to_widget_data'][col] = st.session_state['to_widget_data'][col] * st.session_state['to_widget_data'].Quantity
-
     col_of_interest = [col for col in st.session_state['to_widget_data']  if interest_saving in col][0]
-
     st.session_state['to_widget_data']['selected'] = False
-    
-
     columns_to_plot = ['Equipment',
     'Category of energy saving'] + [col_of_interest] + ['selected']
-    
-
     st.session_state.to_widget_data = st.session_state.to_widget_data.sort_values(by=col_of_interest, ascending=False)
     
+
     # Display the data editor
     st.data_editor(
         st.session_state.to_widget_data[columns_to_plot].sort_values(by=col_of_interest, ascending=False),
