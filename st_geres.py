@@ -124,15 +124,18 @@ with tab_improv:
 
 with tab_dash:
 
+    dash_saving = st.radio(
+        "What savings to check",
+        ('CO2', 'Costs', 'Electricity', 'Water', 'Diesel', 'LPG', 'Wood'))
+
     if 'df_selected_improv' not in st.session_state:
         st.session_state.df_selected_improv = st.session_state['to_widget_data'].iloc[list(st.session_state.improv_data_editor['edited_rows'].keys())]
     
     st.session_state.df_selected_improv = st.session_state['to_widget_data'].iloc[list(st.session_state.improv_data_editor['edited_rows'].keys())]
-    st.write(st.session_state.df_selected_improv)
 
     # Chart plot
     if 'col_inte_chart' not in st.session_state:
-        st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv).mark_bar().encode(
+        st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: pie chart").mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{col_of_interest}:Q',
             # tooltip=[
@@ -143,12 +146,9 @@ with tab_dash:
                     width=700,
                     height=300
                     )
-    st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv).mark_bar().encode(
+    st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: histogram").mark_bar().encode(
             x='Equipment',
-            y=alt.Y(f'{col_of_interest}:Q',
-            # tooltip=[
-            #     alt.Tooltip('Category of energy saving', title='Category of energy saving')
-            # ]
+            y=alt.Y(f'{dash_saving}:Q',
             )
             ).properties(
                     width=700,
@@ -157,12 +157,14 @@ with tab_dash:
     st.altair_chart(st.session_state.col_inte_chart, use_container_width=True)
 
     if 'pie_chart_dash' not in st.session_state:
-        st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv).encode(
-        theta=alt.Theta(f"{col_of_interest}:Q", stack=True), color=alt.Color("Equipment:N")
+        st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv,  title=f"Your {dash_saving} savings: pie chart").encode(
+        theta=alt.Theta(f"{dash_saving}:Q", stack=True), color=alt.Color("Equipment:N")
     ).mark_arc(outerRadius=120)
 
-    st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv).encode(
-        theta=alt.Theta(f"{col_of_interest}:Q", stack=True), color=alt.Color("Equipment:N")
-    ).mark_arc(outerRadius=120)
+    st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: pie chart").encode(
+        theta=alt.Theta(f"{dash_saving}:Q", stack=True), color=alt.Color("Equipment:N")
+    ).mark_arc(outerRadius=120).properties()
 
     st.altair_chart(st.session_state.pie_chart_dash, use_container_width=True)
+
+    
