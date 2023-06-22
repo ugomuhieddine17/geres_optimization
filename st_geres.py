@@ -135,7 +135,7 @@ with tab_dash:
 
     # Chart plot
     if 'col_inte_chart' not in st.session_state:
-        st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_col} savings: pie chart").mark_bar().encode(
+        st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: pie chart").mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{dash_col}:Q',
             # tooltip=[
@@ -146,7 +146,7 @@ with tab_dash:
                     width=700,
                     height=300
                     )
-    st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_col} savings: histogram").mark_bar().encode(
+    st.session_state.col_inte_chart = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: histogram").mark_bar().encode(
             x='Equipment',
             y=alt.Y(f'{dash_col}:Q',
             )
@@ -157,11 +157,11 @@ with tab_dash:
     st.altair_chart(st.session_state.col_inte_chart, use_container_width=True)
 
     if 'pie_chart_dash' not in st.session_state:
-        st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv,  title=f"Your {dash_col} savings: pie chart").encode(
+        st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv,  title=f"Your {dash_saving} savings: pie chart").encode(
         theta=alt.Theta(f"{dash_col}:Q", stack=True), color=alt.Color("Equipment:N")
     ).mark_arc(outerRadius=120)
 
-    st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_col} savings: pie chart").encode(
+    st.session_state.pie_chart_dash = alt.Chart(st.session_state.df_selected_improv, title=f"Your {dash_saving} savings: pie chart").encode(
         theta=alt.Theta(f"{dash_col}:Q", stack=True), color=alt.Color("Equipment:N")
     ).mark_arc(outerRadius=120).properties()
 
